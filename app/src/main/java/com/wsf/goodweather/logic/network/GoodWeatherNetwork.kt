@@ -10,10 +10,18 @@ import kotlin.coroutines.suspendCoroutine
 object GoodWeatherNetwork {
 
     private val placeService = ServiceCreator.create(PlaceService::class.java)
+    private val weatherService = ServiceCreator.create(WeatherService::class.java)
 
     suspend fun searchPlace(query: String) = placeService.searchPlaces(query).await()
 
-    private suspend fun <T> Call<T>.await():  T {
+    suspend fun getDailyWeather(lng: String, lat: String) =
+        weatherService.getDailyWeather(lng, lat).await()
+
+    suspend fun getRealTimeWeather(lng: String, lat: String) =
+        weatherService.getRealTimeWeather(lng, lat).await()
+
+
+    private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine { continuation ->
             enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {

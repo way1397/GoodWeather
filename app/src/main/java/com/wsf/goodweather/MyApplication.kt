@@ -7,7 +7,7 @@ import android.content.Context
 class MyApplication : Application() {
 
     companion object {
-        const val TOKEN="123"
+        const val TOKEN="N9qLJgcBWSiJVjO9"
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
     }
